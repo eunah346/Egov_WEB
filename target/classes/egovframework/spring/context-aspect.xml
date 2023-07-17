@@ -3,7 +3,7 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
-
+<!--  기본패키지 삭제 ~ 기본패키지를 참고하고 있기때문에 주석처리
 	<aop:config>
 		<aop:pointcut id="serviceMethod" expression="execution(* egovframework.example..impl.*Impl.*(..))" />
 
@@ -55,5 +55,5 @@
 
 	<bean id="egovHandler" class="egovframework.example.cmmn.EgovSampleExcepHndlr" />
 	<bean id="otherHandler" class="egovframework.example.cmmn.EgovSampleOthersExcepHndlr" />	
-	
+-->	
 </beans>

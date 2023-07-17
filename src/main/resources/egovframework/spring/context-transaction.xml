@@ -10,6 +10,7 @@
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
+<!-- 트랜젝션 처리는 데이터베이스가 담당하기 때문에 주석처리 
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
 			<tx:method name="*" rollback-for="Exception"/>
@@ -20,5 +21,5 @@
 		<aop:pointcut id="requiredTx" expression="execution(* egovframework.example.sample..impl.*Impl.*(..))"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" />
 	</aop:config>
-
+-->
 </beans>

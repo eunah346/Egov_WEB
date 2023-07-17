@@ -2,12 +2,21 @@
     pageEncoding="UTF-8"%>
 <!--jstl 태그라이브러리 추가.-->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!--전자정부 태그라이브러리 추가.-->
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+
+	function movePage(page){
+		location.href="<%=request.getContextPath()%>/boardList.do?pageNo="+page;
+	}
+</script>
+
 <style>
 	table {
 		  border-collapse: collapse;
@@ -47,7 +56,8 @@
 </style>
 </head>
 <body>
-	<table>
+
+		<table>
 		<tr>
 			<th class="col1">번호</th>
 			<th class="col2">제목</th>
@@ -64,7 +74,21 @@
 			<td>${map.writetime}</td>
 			<td>${map["seecount"]}</td>
 		</tr>
+		
+		
 		</c:forEach>
+		
+		<tr>
+			<td colspan="5" style="text-align:center;">
+				<ui:pagination paginationInfo = "${paginationInfo}"
+					type="image"
+					jsFunction="movePage"/>
+							
+			</td>
+		</tr>
+		
 	</table>
+	
+	
 </body>
 </html>
