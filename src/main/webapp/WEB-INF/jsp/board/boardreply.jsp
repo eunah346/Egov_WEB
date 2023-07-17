@@ -41,7 +41,8 @@
 </head>
 <body>
 <!--  게시판유형 -->
-    <form action="boardInsert.do" method="post">
+    <form action="boardReplyReq.do" method="post">
+    <input type="hidden" name="originalid"  value="${boardid}">
     <table class="mytable">
         <tr>
             <td class="td1">제목</td>
@@ -53,7 +54,7 @@
         </tr>
         <tr>
             <td colspan="2" class="td4">
-                <input type="submit" value="제출">
+                <input type="submit" value="답변">
                <a href="boardList.do"><input type="button" value="목록보기"></a>
             </td>
         </tr>

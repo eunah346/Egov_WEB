@@ -87,6 +87,7 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 		{
 			throw new Exception("페이지찾을수없음");
 		}
+		rusultMap.put("loginid",id);
 		
 		return rusultMap;
 	}
@@ -137,5 +138,26 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 		list.add(resultMap);
 		
 		return list;
+	}
+	
+	// 답글
+	@Override
+	public String checkReply(HttpServletRequest request) throws Exception {
+		
+		if(request.getSession().getAttribute("uservo")==null)
+		{
+			throw new Exception("로그인안했음");
+		}
+		// 게시판 번호 받아오기
+		String boardid = request.getParameter("boardid");
+		
+		if(Validation_Form.validNum(boardid) == false) {
+			// 숫자인지 체크해주는 유효성 검사 함수, 숫자가 아니면 false를 반환
+			// com.lib.util > Validation_Form 에서 생성해뒀음
+			
+			throw new Exception("유효성 검사 실패");
+		}
+		
+		return boardid;
 	}
 }

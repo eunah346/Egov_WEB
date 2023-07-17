@@ -100,9 +100,14 @@ public class BoardController {
 			return "error/error";
 		}
 		
-		model.addAttribute("userid", resultMap.get("userid").toString());
-		model.addAttribute("title", resultMap.get("title").toString());
-		model.addAttribute("boardcontents", resultMap.get("boardcontents").toString());
+		model.addAllAttributes(resultMap); // 자동으로 HashMap에서 ModelMap으로 값을 담음
+		
+		/*
+		 * model.addAttribute("userid", resultMap.get("userid").toString());
+		 * model.addAttribute("title", resultMap.get("title").toString());
+		 * model.addAttribute("boardcontents",
+		 * resultMap.get("boardcontents").toString());
+		 */
 		return "board/boardview";
 	}
 	
@@ -140,6 +145,40 @@ public class BoardController {
 		list.remove(list.size()-1);
 		model.addAttribute("boardlist",list);
 		return "board/boardlist2";
+	}
+	
+	// 답글
+	@RequestMapping(value="/boardReply.do")
+	public String boardReply(HttpServletRequest request,ModelMap model)
+	{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		String boardid = null;
+		
+		try {
+			boardid = boardService.checkReply(request);
+		} catch (Exception e) {
+
+			//로그기록,상태코드반환 또는 에러페이지 전달
+			String error = e.getMessage();
+			if(error.equals("로그인안했음"))
+			{
+				return "redirect:/login.do";
+			}
+			else if(error.equals("유효성검사실패"))
+			{
+				return "redirect:/boardList.do";
+			}
+			else
+			{
+				//일반예외페이지
+			}
+			
+			return "error/error";
+		}
+		// 답변 글쓰기 페이지로 내보내기
+		model.addAttribute("boardid",boardid);
+		
+		return "board/boardreply";
 	}
 	
 }
