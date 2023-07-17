@@ -14,6 +14,6 @@
 	
 	<!-- 글 목록 조회 -->
 	<select id="showBoardList" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-	{ call sp_showboardlist(#{out_state,mode=OUT,jdbcType=INTEGER,javaType=INTEGER} )}
+	{ call sp_showboardlist(#{pi_offset},#{pi_recordCountPerPage},#{out_listcount,mode=OUT,jdbcType=INTEGER,javaType=INTEGER},#{out_state,mode=OUT,jdbcType=INTEGER,javaType=INTEGER} )}
 	</select>
 </mapper>

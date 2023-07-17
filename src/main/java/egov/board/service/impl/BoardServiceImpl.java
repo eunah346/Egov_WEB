@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Service;
 
 import com.lib.model.UserVO;
@@ -96,17 +97,44 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 		{
 			throw new Exception("로그인안했음");
 		}
+		// 페이지 번호
+		String pageNo = request.getParameter("pageNo");
+		// 요청값 검증
+		if(pageNo == null || pageNo.equals(""))
+		{
+			pageNo = "1";
+		}
+		else
+		{
+			pageNo = request.getParameter("pageNo");
+		}
+		// 페이징 관련 정보를 담는 class
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(Integer.parseInt(pageNo));
+		paginationInfo.setPageSize(10);
+		paginationInfo.setRecordCountPerPage(10);
 		
 		HashMap<String,Object> paramMap= new HashMap<String,Object>();
+		paramMap.put("pi_offset", (paginationInfo.getCurrentPageNo()-1)*paginationInfo.getRecordCountPerPage());
+
+		paramMap.put("pi_recordCountPerPage", paginationInfo.getRecordCountPerPage()); // 게시물 건수
+		paramMap.put("out_listcount", 0);
 		paramMap.put("out_state", 0);
 		
 		ArrayList<HashMap<String,Object>> list= new ArrayList<HashMap<String,Object>>();
 		list=boardMapper.showBoardList(paramMap);
+		int listCount = Integer.parseInt(paramMap.get("out_listcount").toString());
+		paginationInfo.setTotalRecordCount(listCount);
 		
 		if(list==null)
 		{
 			throw new Exception("페이지찾을수없음");
 		}
+		
+		HashMap<String,Object> resultMap= new HashMap<String,Object>();
+		resultMap.put("paginationInfo", paginationInfo);
+		resultMap.put("listCount", listCount);
+		list.add(resultMap);
 		
 		return list;
 	}
