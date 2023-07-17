@@ -1,5 +1,6 @@
 package egov.board.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.annotation.Resource;
@@ -64,7 +65,7 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 		// 로그인 세션 가져오기 (세션에 저장되어있는 유저 정보 가져옴)
 		String id = ((UserVO)request.getSession().getAttribute("uservo")).getUserid();
 		// 사용자요청을 데이터베이스로 전달
-		String brdid = request.getParameter("uservo"); // 게시판 번호
+		String brdid = request.getParameter("brdid"); // 게시판 번호
 		
 		// 게시판 번호 숫자인지 체크 
 		boolean validNumber = false;
@@ -87,5 +88,26 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 		}
 		
 		return rusultMap;
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> showBoardList(HttpServletRequest request) throws Exception {
+		if(request.getSession().getAttribute("uservo")==null)
+		{
+			throw new Exception("로그인안했음");
+		}
+		
+		HashMap<String,Object> paramMap= new HashMap<String,Object>();
+		paramMap.put("out_state", 0);
+		
+		ArrayList<HashMap<String,Object>> list= new ArrayList<HashMap<String,Object>>();
+		list=boardMapper.showBoardList(paramMap);
+		
+		if(list==null)
+		{
+			throw new Exception("페이지찾을수없음");
+		}
+		
+		return list;
 	}
 }

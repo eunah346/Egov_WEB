@@ -11,4 +11,9 @@
 	<select id="showBoard" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 	{ call sp_showboard(#{in_brdid,mode=IN},#{out_state,mode=OUT,jdbcType=INTEGER,javaType=INTEGER} )}
 	</select>
+	
+	<!-- 글 목록 조회 -->
+	<select id="showBoardList" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	{ call sp_showboardlist(#{out_state,mode=OUT,jdbcType=INTEGER,javaType=INTEGER} )}
+	</select>
 </mapper>
