@@ -16,4 +16,6 @@ public interface BoardService {
 	ArrayList<HashMap<String, Object>> showBoardList(HttpServletRequest request)throws Exception;
 
 	String checkReply(HttpServletRequest request)throws Exception;
+
+	void saveReply(HttpServletRequest request)throws Exception;
 }

@@ -148,16 +148,50 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 		{
 			throw new Exception("로그인안했음");
 		}
-		// 게시판 번호 받아오기
-		String boardid = request.getParameter("boardid");
-		
-		if(Validation_Form.validNum(boardid) == false) {
-			// 숫자인지 체크해주는 유효성 검사 함수, 숫자가 아니면 false를 반환
-			// com.lib.util > Validation_Form 에서 생성해뒀음
-			
-			throw new Exception("유효성 검사 실패");
+		String boardid =  request.getParameter("boardid");
+		if(Validation_Form.validNum(boardid)==false)
+				// 숫자인지 체크해주는 유효성 검사 함수, 숫자가 아니면 false를 반환
+				// com.lib.util > Validation_Form 에서 생성해뒀음
+		{
+			throw new Exception("유효성검사실패");
 		}
 		
 		return boardid;
+	}
+	
+	@Override
+	public void saveReply(HttpServletRequest request) throws Exception 
+	{
+		
+		if(request.getSession().getAttribute("uservo")==null)
+		{
+			throw new Exception("로그인안했음");
+		}
+		
+		//사용자요청을 데이터베이스로 전달
+		String title= request.getParameter("title");
+		String content =request.getParameter("mytextarea");
+		String originalid =  request.getParameter("originalid");
+		if(Validation_Form.validNum(originalid)==false||content.length()>10000)
+		{
+			throw new Exception("유효성검사실패");
+		}
+		if(title.length()>25)
+		{
+			throw new Exception("제목을 다시 확인해주세요.");
+		}
+		
+		HashMap<String,Object> paramMap= new HashMap<String,Object>();
+		paramMap.put("in_originalid", Integer.parseInt(originalid));
+		paramMap.put("in_title", title);
+		paramMap.put("in_content", content);
+		paramMap.put("in_userid", ((UserVO)request.getSession().getAttribute("uservo")).getUserid());
+		paramMap.put("out_state", 0);
+		boardMapper.saveReply(paramMap);
+		
+		if(Integer.parseInt(paramMap.get("out_state").toString())!=1)
+		{
+			throw new Exception("DB작업실패~!");
+		}
 	}
 }

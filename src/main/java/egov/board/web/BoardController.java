@@ -140,10 +140,11 @@ public class BoardController {
 			
 			return "error/error";
 		}
-
+		
 		model.addAllAttributes(list.get(list.size()-1)); // 페이징 객체
 		list.remove(list.size()-1);
 		model.addAttribute("boardlist",list);
+		
 		return "board/boardlist2";
 	}
 	
@@ -153,7 +154,6 @@ public class BoardController {
 	{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		String boardid = null;
-		
 		try {
 			boardid = boardService.checkReply(request);
 		} catch (Exception e) {
@@ -175,10 +175,39 @@ public class BoardController {
 			
 			return "error/error";
 		}
-		// 답변 글쓰기 페이지로 내보내기
-		model.addAttribute("boardid",boardid);
 		
+		model.addAttribute("boardid",boardid);
 		return "board/boardreply";
 	}
-	
+	// 답글 제출
+	@RequestMapping(value="/boardReplyReq.do")
+	public String boardReplyReq(HttpServletRequest request,ModelMap model)
+	{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		try {
+			boardService.saveReply(request);
+		} catch (Exception e) {
+
+			//로그기록,상태코드반환 또는 에러페이지 전달
+			String error = e.getMessage();
+			if(error.equals("로그인안했음"))
+			{
+				return "redirect:/login.do";
+			}
+			else if(error.equals("제목을 다시 확인해주세요.")||error.equals("유효성검사실패")) 
+			{
+				return "redirect:/boardWrite.do";
+			}
+			else
+			{
+				//일반예외페이지
+				
+			}
+			
+			return "error/error";
+		}
+		return "redirect:/boardList.do";
+	}
 }
+	
+

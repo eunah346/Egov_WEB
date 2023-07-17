@@ -40,9 +40,9 @@
     </style>
 </head>
 <body>
-<!--  게시판유형 -->
+<!-- 게시판 유형-->
     <form action="boardReplyReq.do" method="post">
-    <input type="hidden" name="originalid"  value="${boardid}">
+    <input type="hidden" name="originalid" value="${boardid}">
     <table class="mytable">
         <tr>
             <td class="td1">제목</td>

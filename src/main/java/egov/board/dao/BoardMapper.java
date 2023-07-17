@@ -13,4 +13,6 @@ public interface BoardMapper {
 
 	ArrayList<HashMap<String, Object>> showBoardList(HashMap<String, Object> paramMap)throws Exception;
 
+	void saveReply(HashMap<String, Object> paramMap)throws Exception;
+
 }

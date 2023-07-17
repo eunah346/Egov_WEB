@@ -69,7 +69,7 @@
 		<c:forEach items="${boardlist}" var="map">
 		<tr>
 			<td>${map.boardid}</td>
-			<td><a href="boardView.do?brdid=${map.boardid}">${map.title}</a></td>
+			<td><a href="boardView.do?brdid=${map.boardid}"><c:forEach begin="1" end="${map.group_tab}" step="1">RE:</c:forEach>${map.title}</a></td>
 			<td>${map.userid}</td>
 			<td>${map.writetime}</td>
 			<td>${map["seecount"]}</td>
