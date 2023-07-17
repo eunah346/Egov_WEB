@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egov.board.dao.BoardMapper">
+
+	<!-- 글저장 -->
+	<select id="saveBoard" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	{ call sp_saveboard(#{in_title,mode=IN},#{in_content,mode=IN},#{in_userid,mode=IN},#{out_state,mode=OUT,jdbcType=INTEGER,javaType=INTEGER} )}
+	</select>
+	
+	<!-- 글조회 -->
+	<select id="showBoard" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	{ call sp_showboard(#{in_brdid,mode=IN},#{out_state,mode=OUT,jdbcType=INTEGER,javaType=INTEGER} )}
+	</select>
+</mapper>

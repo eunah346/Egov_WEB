@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egov.main.dao.MainMapper">
+
+	<!-- 회원정보불러오기 -->
+	<select id="selectMain" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	SELECT userid,userpw
+	FROM tbl_user
+	WHERE userid='user123'
+	</select>
+	<select id="selectLogin" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	{ call sp_myproc(#{myid,mode=IN},#{myid,mode=IN},#{out_state,mode=OUT,jdbcType=INTEGER,javaType=INTEGER} )}
+	</select>
+</mapper>
