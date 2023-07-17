@@ -8,7 +8,7 @@
 	FROM tbl_user
 	WHERE userid='user123'
 	</select>
-	<select id="selectLogin" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	<select id="selectLogin" statementType="CALLABLE" resultType="com.lib.model.UserVO" parameterType="java.util.HashMap">
 	{ call sp_myproc(#{myid,mode=IN},#{myid,mode=IN},#{out_state,mode=OUT,jdbcType=INTEGER,javaType=INTEGER} )}
 	</select>
 </mapper>

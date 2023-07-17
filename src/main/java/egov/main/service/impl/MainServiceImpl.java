@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
+import com.lib.model.UserVO;
+
 import egov.main.dao.MainMapper;
 import egov.main.service.MainService;
 
@@ -38,12 +40,14 @@ public class MainServiceImpl extends EgovAbstractServiceImpl implements MainServ
 		//request요청을 paramMap에 담아주기
 		paramMap.put("myid", userid);
 		paramMap.put("out_state", -1);
-		HashMap<String,Object> resultMap = mainMapper.selectLogin(paramMap);
+		UserVO uservo = mainMapper.selectLogin(paramMap);
 		//if
-		if(resultMap ==null)
+		if(uservo ==null)
 		{
 			throw new Exception("resultError_idnotFound");
 		}
+		HashMap<String,Object> resultMap = new HashMap();
+		resultMap.put("uservo", uservo);
 		
 		return resultMap;
 	}

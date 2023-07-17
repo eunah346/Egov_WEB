@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.lib.model.UserVO;
+
 import egov.main.service.MainService;
 
 @Controller
@@ -90,8 +92,8 @@ public class MainController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		try {
 			resultMap= mainService.selectLogin(request);
-			request.getSession().setAttribute("myid",resultMap.get("userid").toString());
-			model.addAttribute("serverId", resultMap.get("userid").toString());
+			request.getSession().setAttribute("uservo",resultMap.get("uservo"));
+			model.addAttribute("serverId", ((UserVO)resultMap.get("uservo")).getUserid());
 		} catch (Exception e) {
 			
 			//로그기록,상태코드반환 또는 에러페이지 전달
