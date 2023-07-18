@@ -59,6 +59,10 @@ public class BoardController {
 			{
 				return "redirect:/boardWrite.do";
 			}
+			else if(error.equals("유효성검사실패"))
+			{
+				return "redirect:/boardWrite.do";
+			}
 			else
 			{
 				//일반예외페이지

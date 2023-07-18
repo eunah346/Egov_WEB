@@ -15,4 +15,6 @@ public interface BoardMapper {
 
 	void saveReply(HashMap<String, Object> paramMap)throws Exception;
 
+	void saveFile(HashMap<String, Object> paramMap2)throws Exception;
+
 }
