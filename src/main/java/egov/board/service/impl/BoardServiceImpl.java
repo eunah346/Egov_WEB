@@ -66,34 +66,36 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 		
 		
 		String uploadPath = properties.getProperty("file.ImgPath");
-		String convertuid = "";	// 서버에 저장할 이름
-		String originalEx="";	// 사용자가 업로드 요청한 파일의 확장자 저장
-		String filePath="";		// 파일 저장 위치
+		String convertuid = "";		// 서버에 저장할 이름
+		String originalEx = "";		// 사용자가 업로드 요청한 파일의 확장자 저장
+		String filePath = "";		// 파일 저장 위치
 		
 		// 인코딩 타입을 multipart로 추가해둬서 파일을 제출시 if 문으로 이동하게 됨
-		if(request instanceof MultipartHttpServletRequest) {
-			final MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
-			final Map<String,MultipartFile> files = multiRequest.getFileMap();
-			
+		if(request instanceof MultipartHttpServletRequest)
+		{
+			final MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
+			final Map<String,MultipartFile> files= multiRequest.getFileMap();
+
 			File saveFolder = new File(uploadPath); // 경로를 가지는 객체
 			
 			// 실제로 폴더 생성
-			if(!saveFolder.exists() || saveFolder.isFile())
+			if(!saveFolder.exists()|| saveFolder.isFile())
 			{
 				saveFolder.mkdirs();
 			}
+			
 			// 하나씩 가져오기
-			for(MultipartFile file:files.values()) 
+			for(MultipartFile file:files.values())
 			{
 				// 공백체크
 				if(!"".equals(file.getOriginalFilename()))
 				{
 					// 파일 사이즈 제한
-					int maxSize = 1*1024*1024; // 1mb
+					int maxSize= 10*1024*1024;	// 10mb
 					int fileSize = (int)file.getSize();
-					if(fileSize>maxSize) 
+					if(fileSize>maxSize)
 					{
-						throw new Exception("유효성검사 실패");
+						throw new Exception("유효성검사실패");
 					}
 					
 					// 서버에 저장하기 위해서 새로운 파일이름 생성
@@ -105,10 +107,10 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 
 					convertuid = UUID.randomUUID().toString().replace("-", "")+year+month+date+hour;
 					// 문자열을 substring 을 통해서 잘라줘서 확장자를 얻음 .의 위치를 숫자로 얻어서 함수에 사용
-					originalEx= file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
-					convertuid = convertuid + "." + originalEx;
+					originalEx = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
+					convertuid = convertuid+"."+originalEx;
 					// 서버의 파일경로
-					filePath = uploadPath + convertuid;	// 업로드 폴더와 생성한 파일이름 합쳐줌
+					filePath = uploadPath+convertuid;	// 업로드 폴더와 생성한 파일이름 합쳐줌
 					// 파일경로로 파일 전송
 					file.transferTo(new File(filePath));
 					

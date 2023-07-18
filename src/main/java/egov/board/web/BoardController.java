@@ -70,7 +70,7 @@ public class BoardController {
 			
 			return "error/error";
 		}
-		return "board/boardwrite";
+		return "redirect:/boardList.do";
 	}
 	
 

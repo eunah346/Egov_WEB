@@ -38,7 +38,8 @@
 </head>
 <body>
 	<!--  게시판유형 -->
-	<form action="boardInsert.do" method="post" enctype="multipart/form-data">
+	<form action="boardInsert.do" method="post"
+		enctype="multipart/form-data">
 		<table class="mytable">
 			<tr>
 				<td class="td1">제목</td>
@@ -48,12 +49,10 @@
 				<td class="td1 td3">내용</td>
 				<td><textarea class="td2 mytextarea" name="mytextarea"></textarea></td>
 			</tr>
-
 			<tr>
 				<td class="td1">파일</td>
 				<td><input type="file" class="td2" name="myfile"></td>
 			</tr>
-
 			<tr>
 				<td colspan="2" class="td4"><input type="submit" value="제출">
 					<a href="boardList.do"><input type="button" value="목록보기"></a>
