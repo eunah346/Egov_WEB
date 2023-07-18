@@ -169,9 +169,14 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 		}
 		
 		//사용자요청을 데이터베이스로 전달
-		String title= request.getParameter("title");
-		String content =request.getParameter("mytextarea");
+		String title = request.getParameter("title");
+		String content = request.getParameter("mytextarea");
 		String originalid =  request.getParameter("originalid");
+		
+		System.out.println("title : "+ title);
+		System.out.println("content : "+ content);
+		System.out.println("originalid :"+originalid);
+		
 		if(Validation_Form.validNum(originalid)==false||content.length()>10000)
 		{
 			throw new Exception("유효성검사실패");
@@ -181,7 +186,7 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 			throw new Exception("제목을 다시 확인해주세요.");
 		}
 		
-		HashMap<String,Object> paramMap= new HashMap<String,Object>();
+		HashMap<String,Object> paramMap = new HashMap<String,Object>();
 		paramMap.put("in_originalid", Integer.parseInt(originalid));
 		paramMap.put("in_title", title);
 		paramMap.put("in_content", content);

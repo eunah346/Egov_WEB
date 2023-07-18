@@ -20,6 +20,8 @@
 	
 	<!-- 댓글저장 -->
 	<select id="saveReply" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-	{ call sp_savereply(#{in_originalid,mode=IN},#{in_title,mode=IN},#{in_content,mode=IN},#{in_userid,mode=IN},#{out_state,mode=OUT,jdbcType=INTEGER,javaType=INTEGER} )}
+	{ 
+	call sp_savereply(#{in_originalid,mode=IN},#{in_title,mode=IN},#{in_content,mode=IN},#{in_userid,mode=IN},#{out_state,mode=OUT,jdbcType=INTEGER,javaType=INTEGER} )
+	}
 	</select>
 </mapper>

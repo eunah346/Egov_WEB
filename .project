@@ -21,6 +21,11 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+			<name>egovframework.bdev.imp.ide.natures.egovnature.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
@@ -34,5 +39,6 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>egovframework.dev.imp.ide.natures.egovnature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
+		<nature>egovframework.bdev.imp.ide.natures.egovnature</nature>
 	</natures>
 </projectDescription>
